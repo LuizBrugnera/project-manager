@@ -39,7 +39,6 @@ export async function hasProjectAccess(
 ): Promise<{ hasAccess: boolean; isOwner: boolean }> {
   const user = await getCurrentUser();
   if (!user) return { hasAccess: false, isOwner: false };
-  if (!user.workspaceId) return { hasAccess: false, isOwner: false };
 
   const project = await prisma.project.findUnique({
     where: { id: projectId },
@@ -55,7 +54,16 @@ export async function hasProjectAccess(
 
   if (!project) return { hasAccess: false, isOwner: false };
 
-  // Workspace isolation: se projeto é de outro workspace, nega
+  const isMember = project.members.length > 0;
+  const isOwner = project.createdById === user.id;
+
+  // Membro do projeto tem acesso total (igual ao dono), independente de workspace
+  if (isMember || isOwner) {
+    return { hasAccess: true, isOwner };
+  }
+
+  // Sem ser dono nem membro: exige mesmo workspace (isolamento por workspace)
+  if (!user.workspaceId) return { hasAccess: false, isOwner: false };
   if (project.workspaceId !== user.workspaceId) {
     return { hasAccess: false, isOwner: false };
   }
@@ -64,13 +72,10 @@ export async function hasProjectAccess(
     where: { id: project.workspaceId },
     select: { ownerId: true },
   });
-
-  const isOwner =
-    project.createdById === user.id || workspace?.ownerId === user.id;
-  const isMember = project.members.length > 0;
+  const isWorkspaceOwner = workspace?.ownerId === user.id;
 
   return {
-    hasAccess: isOwner || isMember,
-    isOwner,
+    hasAccess: isWorkspaceOwner,
+    isOwner: isWorkspaceOwner,
   };
 }

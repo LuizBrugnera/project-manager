@@ -77,7 +77,7 @@ export default async function ProjectSettingsPage({
         </p>
       </div>
 
-      {/* Info Card */}
+      {/* Info Card: membros não podem adicionar membros nem excluir o projeto */}
       {!isOwner && (
         <Card className="border-amber-500/20 bg-amber-500/5">
           <CardContent className="pt-6">
@@ -85,10 +85,10 @@ export default async function ProjectSettingsPage({
               <Shield className="h-5 w-5 text-amber-400 mt-0.5" />
               <div>
                 <p className="text-sm font-medium mb-1">
-                  Acesso limitado
+                  Você é membro deste projeto
                 </p>
                 <p className="text-xs text-[hsl(var(--muted-foreground))]">
-                  Você é membro deste projeto. Apenas o dono pode gerenciar membros e configurações.
+                  Suas permissões são iguais às do dono, exceto: apenas o dono pode adicionar novos membros e excluir o projeto.
                 </p>
               </div>
             </div>
@@ -117,7 +117,7 @@ export default async function ProjectSettingsPage({
         </CardContent>
       </Card>
 
-      {/* Adicionar Membro (apenas para OWNER) */}
+      {/* Adicionar Membro — apenas dono */}
       {isOwner && (
         <Card>
           <CardHeader>
@@ -135,25 +135,21 @@ export default async function ProjectSettingsPage({
         </Card>
       )}
 
-      {/* Tipo do Projeto (apenas para OWNER) */}
-      {isOwner && (
-        <ProjectTypeSettings projectId={id} initialType={project.type} />
-      )}
+      {/* Tipo do Projeto — dono e membros */}
+      <ProjectTypeSettings projectId={id} initialType={project.type} />
 
-      {/* Configurações de Visibilidade (apenas para OWNER) */}
-      {isOwner && (
-        <VisibilitySettings
-          projectId={id}
-          initialVisibility={{
-            showStatus: project.publicViewShowStatus,
-            showTimeline: project.publicViewShowTimeline,
-            showTasks: project.publicViewShowTasks,
-            showScope: project.publicViewShowScope,
-          }}
-        />
-      )}
+      {/* Configurações de Visibilidade — dono e membros */}
+      <VisibilitySettings
+        projectId={id}
+        initialVisibility={{
+          showStatus: project.publicViewShowStatus,
+          showTimeline: project.publicViewShowTimeline,
+          showTasks: project.publicViewShowTasks,
+          showScope: project.publicViewShowScope,
+        }}
+      />
 
-      {/* Excluir projeto (apenas para OWNER, confirma digitando o nome) */}
+      {/* Excluir projeto — apenas dono */}
       {isOwner && (
         <DeleteProjectForm projectId={id} projectName={project.name} />
       )}

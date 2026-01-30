@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
-import { isProjectOwner } from "@/lib/project-permissions";
+import { hasProjectAccess } from "@/lib/project-permissions";
 
 type UpdateVisibilityResult =
   | { success: true }
@@ -24,12 +24,12 @@ export async function updatePublicVisibilityAction(
     return { success: false, error: "Você precisa estar logado." };
   }
 
-  // Verifica se é Owner
-  const isOwner = await isProjectOwner(projectId);
-  if (!isOwner) {
+  // Dono ou membro podem alterar visibilidade
+  const { hasAccess } = await hasProjectAccess(projectId);
+  if (!hasAccess) {
     return {
       success: false,
-      error: "Apenas o dono do projeto pode alterar a visibilidade pública.",
+      error: "Você não tem acesso a este projeto.",
     };
   }
 

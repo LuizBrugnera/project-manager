@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
-import { isProjectOwner } from "@/lib/project-permissions";
+import { hasProjectAccess, isProjectOwner } from "@/lib/project-permissions";
 import type { ProjectType } from "@prisma/client";
 import { createActivity } from "@/lib/activity-log";
 
@@ -175,16 +175,16 @@ export async function removeMemberAction(
   return { success: true };
 }
 
-// ========== UPDATE PROJECT TYPE (owner only) ==========
+// ========== UPDATE PROJECT TYPE (dono e membros) ==========
 export async function updateProjectTypeAction(
   projectId: string,
   type: ProjectType
 ): Promise<{ success: true } | { success: false; error: string }> {
-  const isOwner = await isProjectOwner(projectId);
-  if (!isOwner) {
+  const { hasAccess } = await hasProjectAccess(projectId);
+  if (!hasAccess) {
     return {
       success: false,
-      error: "Apenas o dono do projeto pode alterar o tipo.",
+      error: "Você não tem acesso a este projeto.",
     };
   }
 
