@@ -1,0 +1,297 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  OWNER
+  MEMBER
+}
+
+enum ProjectType {
+  WEB
+  MOBILE
+  FULLSTACK
+}
+
+enum ProjectStatus {
+  PLANNING
+  UX_UI
+  ARCHITECTURE
+  DEVELOPMENT
+  DEPLOYMENT
+  TESTING
+  DELIVERY
+  PUBLISHED
+  SUPPORT
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+enum ProjectSectionType {
+  CONTEXT
+  SCOPE
+  ROLES
+  ARCHITECTURE
+  BACKEND_MODELAGEM
+  BACKEND_DIAGRAMAS
+  BACKEND_ARQUITETURA
+  FRONTEND_FLUXO
+  FRONTEND_UI_DESIGN
+  FRONTEND_PROTOTIPO
+}
+
+enum TaskStatus {
+  BACKLOG
+  TODO
+  IN_PROGRESS
+  TESTING
+  DONE
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model User {
+  id           String          @id @default(cuid())
+  name         String
+  email        String          @unique
+  passwordHash String
+  role         UserRole        @default(MEMBER)
+  avatar       String?
+  workspaceId  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workspace       Workspace?      @relation(fields: [workspaceId], references: [id])
+  ownedWorkspace   Workspace?      @relation("WorkspaceOwner")
+  projectsCreated  Project[]       @relation("ProjectsCreated")
+  memberships      ProjectMember[]
+  assignedTasks    Task[]          @relation("TasksAssigned")
+  activities       ActivityLog[]
+  contentVersions  ContentVersion[] @relation("ContentVersionsCreated")
+}
+
+model Workspace {
+  id        String  @id @default(cuid())
+  ownerId   String  @unique
+  name      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  owner   User     @relation("WorkspaceOwner", fields: [ownerId], references: [id])
+  users   User[]
+  projects Project[]
+  invites WorkspaceInvite[]
+}
+
+model Project {
+  id          String         @id @default(cuid())
+  name        String
+  description String?        @db.Text
+  type        ProjectType
+  status      ProjectStatus  @default(PLANNING)
+  clientName  String?
+  startDate   DateTime?
+  deadline    DateTime?
+  workspaceId String
+
+  // Dados do Cliente
+  clientCompany      String?
+  clientContactName  String?
+  clientContactEmail String?
+  clientNotes        String? @db.Text
+
+  // Dados Comerciais (apenas Owner pode ver)
+  proposalValue      Decimal? @db.Decimal(10, 2)
+  contractLink       String?
+  commercialNotes    String? @db.Text
+
+  // Configurações de Visibilidade do Link Público
+  publicViewShowStatus      Boolean @default(true)
+  publicViewShowTimeline    Boolean @default(true)
+  publicViewShowTasks       Boolean @default(true)
+  publicViewShowScope       Boolean @default(false)
+
+  publicToken  String? @unique
+  createdById  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+  createdBy User           @relation("ProjectsCreated", fields: [createdById], references: [id])
+  members   ProjectMember[]
+  sections  ProjectSection[]
+  tasks     Task[]
+  activities ActivityLog[]
+  milestones ProjectMilestone[]
+  meetings  Meeting[]
+
+  @@index([workspaceId, createdAt])
+}
+
+model WorkspaceInvite {
+  id          String   @id @default(cuid())
+  token       String   @unique
+  email       String?  // opcional: convite direcionado
+  expiresAt   DateTime?
+  usedAt      DateTime?
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+
+  @@index([workspaceId, createdAt])
+  @@index([token])
+}
+
+model ProjectMember {
+  userId    String
+  projectId String
+
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@id([userId, projectId])
+}
+
+model ProjectSection {
+  id      String            @id @default(cuid())
+  title   String
+  content String            @db.LongText
+  type    ProjectSectionType
+  externalLinks String?     @db.Text // JSON string: { figma?: string, github?: string, other?: string[] }
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  versions ContentVersion[]
+}
+
+model ContentVersion {
+  id        String   @id @default(cuid())
+  content   String   @db.LongText
+  version   Int      // Número sequencial da versão
+  
+  sectionId String
+  section   ProjectSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  
+  createdById String
+  createdBy   User   @relation("ContentVersionsCreated", fields: [createdById], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([sectionId, createdAt])
+  @@index([sectionId, version])
+}
+
+model Task {
+  id          String       @id @default(cuid())
+  title       String       @db.VarChar(500)
+  description String?      @db.Text
+  status      TaskStatus   @default(TODO)
+  priority    TaskPriority @default(MEDIUM)
+  listOrder   Int
+  tag         String?      // tema/fase da geração com IA: Stacks e ambiente, Back-end, etc.
+
+  projectId      String
+  assignedUserId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project      Project @relation(fields: [projectId], references: [id])
+  assignedUser User?   @relation("TasksAssigned", fields: [assignedUserId], references: [id])
+}
+
+enum ActivityType {
+  PROJECT_CREATED
+  PROJECT_UPDATED
+  PROJECT_STATUS_CHANGED
+  TASK_CREATED
+  TASK_UPDATED
+  TASK_MOVED
+  TASK_COMPLETED
+  TASK_ASSIGNED
+  SECTION_UPDATED
+  MEMBER_ADDED
+  MEMBER_REMOVED
+  MILESTONE_CREATED
+  MILESTONE_COMPLETED
+  MEETING_CREATED
+}
+
+model ActivityLog {
+  id        String       @id @default(cuid())
+  type      ActivityType
+  action    String?      @db.VarChar(500)
+  message   String       @db.Text
+  entityId  String?      // ID da entidade relacionada (task, section, etc)
+  entityType String?     // Tipo da entidade: "TASK", "SECTION", "PROJECT", etc
+  metadata  String?      @db.Text // JSON string para dados adicionais
+
+  userId    String?
+  projectId String?
+
+  createdAt DateTime @default(now())
+
+  user    User?    @relation(fields: [userId], references: [id])
+  project Project? @relation(fields: [projectId], references: [id])
+
+  @@index([projectId, createdAt])
+  @@index([userId, createdAt])
+  @@index([entityId, entityType])
+}
+
+model ProjectMilestone {
+  id          String   @id @default(cuid())
+  title       String   @db.VarChar(500)
+  description String?  @db.Text
+  dueDate     DateTime
+  completed   Boolean  @default(false)
+  completedAt DateTime?
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId, dueDate])
+}
+
+model Meeting {
+  id          String   @id @default(cuid())
+  date        DateTime
+  summary     String   @db.Text
+  decisions   String?  @db.Text // JSON array de decisões
+  nextSteps   String?  @db.Text // JSON array de próximos passos
+  participants String? @db.Text // JSON array de IDs de participantes
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId, date])
+}
+

@@ -1,0 +1,1555 @@
+[2026-01-30T13:40:23.398Z] [DEBUG] [generateTasksPreviewAction] ========== ENTRADA ==========
+[2026-01-30T13:40:23.398Z] [DEBUG] [generateTasksPreviewAction] projectId: cmkzn5p6q001cujfssher0q9l
+[2026-01-30T13:40:23.399Z] [DEBUG] [generateTasksPreviewAction] theme: Stacks e ambiente | tag: Stacks e ambiente
+[2026-01-30T13:40:23.400Z] [DEBUG] [generateTasksPreviewAction] optionalText: (vazio)
+[2026-01-30T13:40:23.400Z] [DEBUG] [generateTasksPreviewAction] INSTRUÇÃO DA FASE: Foque em stacks, ferramentas e ambiente: linguagens, frameworks, versões, IDE, Docker, env vars, scripts, repositório e tudo que define o ambiente de desenvolvimento e produção.
+[2026-01-30T13:40:23.401Z] [DEBUG] [generateTasksPreviewAction] ---------- CONTEXTO DO PROJETO ----------
+[2026-01-30T13:40:23.402Z] [DEBUG] [generateTasksPreviewAction] **CONTEXTO:**
+# Problemas atuais do mercado
+
+- Clínicas usam planilhas + WhatsApp + agenda física
+
+- Softwares genéricos não respeitam o raciocínio clínico
+
+- Prontuários bagunçados ou inexistentes
+
+- Falta de acompanhamento real da evolução do paciente
+
+- Pouco engajamento pós-consulta
+
+- Agendamento manual e falhas de comunicação
+
+- Dificuldade em escalar atendimento e padronizar processos
+
+# O que o InfoFisio entrega
+
+- Centralização total do atendimento
+
+- Prontuário clínico estruturado e inteligente
+
+- Histórico completo por paciente
+
+- Comunicação contínua com o cliente
+
+- Profissionalismo percebido pelo paciente
+
+- Base de dados valiosa para decisões clínicas e administrativas
+
+**ESCOPO:**
+# Stack Tecnológica (Base)
+
+- Frontend: Next.js (App Router)
+
+- Backend: Next.js API Routes / Server Actions
+
+- Banco de Dados: MySQL
+
+- ORM: Prisma
+
+- Auth: NextAuth (JWT + OAuth)
+
+- UI: Tailwind + componentes próprios
+
+- Infra: Vercel + banco gerenciado
+
+- Uploads: S3-compatible (ex: Cloudflare R2)
+
+- Notificações: Email + WhatsApp (futuro)
+
+- Multi-tenant: clínicas com múltiplos profissionais
+
+# Estrutura de Perfis Profissionais
+
+## Ao criar a conta, o usuário escolhe:
+
+- ☑ Fisioterapia
+
+- ☑ Osteopatia
+
+- ☑ Pilates
+
+- ☑ Combinação entre eles
+
+### Isso afeta:
+
+- Campos do prontuário
+
+- Tipos de tratamento
+
+- Avaliações clínicas
+
+- Métricas exibidas
+
+- Protocolos sugeridos
+
+- Relatórios
+
+# Módulos do Sistema
+
+## Gestão de Usuários
+- Tipos de usuário
+
+- Administrador da clínica
+
+- Profissional (fisio / osteo / pilates)
+
+- Secretária / recepção
+
+- Paciente
+
+- Permissões
+
+- Controle fino por módulo
+
+- Profissional só vê seus pacientes
+
+- Clínica vê dados consolidados
+
+## Cadastro de Pacientes (CRM)
+- Dados básicos
+
+- Nome, CPF
+
+- Contato
+
+- Data de nascimento
+
+- Sexo
+
+- Profissão
+
+- Convênio / particular
+
+- Dados clínicos
+
+- Queixa principal
+
+- Histórico médico
+
+- Cirurgias anteriores
+
+- Doenças associadas
+
+- Medicamentos
+
+- Restrições
+
+- Relacionamentos
+
+- Paciente → múltiplos tratamentos
+
+- Paciente → múltiplos profissionais
+
+## Prontuário Clínico Inteligente (Core do Sistema)
+Registro por sessão
+
+- Cada consulta gera um registro com:
+
+- Data e horário
+
+- Profissional responsável
+
+- Queixas atuais
+
+- Avaliação clínica
+
+- Diagnóstico funcional
+
+- Tratamentos aplicados
+
+- Técnicas utilizadas
+
+- Exercícios prescritos
+
+- Observações livres
+
+- Evolução do paciente
+
+- Escala de dor (0–10)
+
+- Mobilidade
+
+- Força
+
+- Amplitude
+
+- Funcionalidade
+
+- Comparação automática com sessões anteriores
+
+## Efetividade
+
+- Campo: “Tratamento foi efetivo?”
+
+- Justificativa
+
+- Ajustes para próxima sessão
+
+## Protocolos e Tratamentos
+
+- Biblioteca de protocolos padrão
+
+- Protocolos personalizados por clínica
+
+- Associação por patologia
+
+- Histórico de aplicação
+
+- Estatística de efetividade por protocolo
+
+## Agenda Inteligente
+### Funcionalidades
+
+- Agenda por profissional
+
+- Agenda da clínica
+
+- Visualização diária / semanal / mensal
+
+- Bloqueios de horário
+
+- Duração variável por tipo de atendimento
+
+- Agendamento pelo paciente
+
+- Portal do cliente
+
+- Escolha de profissional
+
+- Escolha de serviço
+
+- Confirmação automática
+
+- Lembretes por email/WhatsApp
+
+## Portal do Paciente
+### Acesso do paciente
+
+- Login próprio
+
+- Visualização de histórico
+
+- Agenda pessoal
+
+- Exercícios e alongamentos
+
+- Conteúdo terapêutico
+
+- Vídeos de exercícios
+
+- PDFs de orientação
+
+- Observações do profissional
+
+- Frequência recomendada
+
+- Feedback
+
+- Avaliação da sessão
+
+- Escala de dor pós-atendimento
+
+- Comentários
+
+- Adesão aos exercícios
+
+## Comunicação e Engajamento
+
+- Mensagens automáticas pós-consulta
+
+- Lembretes de exercícios
+
+- Avisos de retorno
+
+- Mensagens personalizadas
+
+- Histórico de comunicação
+
+## Relatórios e Indicadores
+- Clínicos
+
+- Evolução média dos pacientes
+
+- Tratamentos mais efetivos
+
+- Patologias mais comuns
+
+- Taxa de melhora
+
+- Administrativos
+
+- Atendimentos por período
+
+- Taxa de faltas
+
+- Profissionais mais ativos
+
+- Retenção de pacientes
+
+## Financeiro (opcional / premium)
+
+- Valor por sessão
+
+- Pacotes de sessões
+
+- Controle de pagamentos
+
+- Convênios
+
+- Faturas e recibos
+
+## Features Avançadas (Diferenciais)
+- IA Clínica (futuro)
+
+- Sugestão de tratamento baseada em histórico
+
+- Análise de evolução
+
+- Alertas de estagnação do paciente
+
+- Templates Inteligentes
+
+- Prontuário pré-preenchido
+
+- Protocolos recomendados por patologia
+
+- Multiunidade
+
+- Clínicas com várias unidades
+
+- Relatórios consolidados
+
+- Compliance
+
+- LGPD
+
+- Controle de acesso
+
+- Logs de alteração de prontuário
+
+## Diferenciais de Mercado
+
+- Não é genérico → é pensado para fisio/osteo/pilates
+
+- Prontuário clínico de verdade
+
+- Portal do paciente completo
+
+- Evolução mensurável
+
+- Escalável para clínicas e autônomos
+
+- Visual moderno e simples
+
+- Fácil de vender no Brasil e fora
+
+## Posicionamento Comercial
+- Público-alvo
+
+- Fisioterapeutas autônomos
+
+- Clínicas pequenas e médias
+
+- Estúdios de pilates
+
+- Centros integrados de saúde
+
+- Modelo de cobrança
+
+- Plano individual
+
+- Plano clínica
+
+-Add-ons (financeiro, IA, WhatsApp)
+
+**Modelagem de Banco:**
+# Modelagem do banco de dados
+
+## Entidades
+
+- Clinic
+- User
+- UserRole
+- ProfessionalProfile
+- Patient
+- PatientClinicalData
+- Appointment
+- Session
+- SessionEvolution
+- Treatment
+- Protocol
+- SessionTreatment
+- Exercise
+- SessionExercise
+- PatientFeedback
+- Notification
+
+**Arquitetura:**
+# Visão Geral da Arquitetura
+- Estilo
+
+- Backend modular orientado a domínio
+
+- Camadas bem definidas
+
+- Multi-tenant desde o início
+
+- Pronto para crescer (financeiro, IA, integrações)
+
+- Stack
+
+- Next.js (App Router)
+
+- API Routes + Server Actions
+
+- MySQL
+
+- Prisma ORM
+
+- NextAuth (JWT)
+
+- Zod (validação)
+
+- Middleware (auth + tenant)
+
+- Serviços isolados por domínio
+
+**Fluxo de Usuário:**
+Visão Geral dos Fluxos
+Tipos de usuário
+
+Administrador da Clínica
+
+Profissional (Fisio / Osteo / Pilates)
+
+Secretária / Recepção
+
+Paciente
+
+Cada um entra por um caminho diferente, mas o sistema mantém coerência de dados.
+
+2. Fluxo 1 — Administrador da Clínica
+2.1 Primeiro Acesso (Onboarding)
+
+Landing page → Criar conta
+
+Informa:
+
+Nome da clínica
+
+Email
+
+Senha
+
+Sistema cria:
+
+clinic
+
+user (ADMIN)
+
+Login automático
+
+Decisão de produto
+
+👉 Zero fricção: sem CNPJ no primeiro passo.
+
+2.2 Configuração Inicial (Setup Guiado)
+
+Wizard obrigatório:
+
+Etapa 1 — Perfil da Clínica
+
+Nome
+
+Telefone
+
+Logo
+
+Horário de funcionamento
+
+Etapa 2 — Especialidades
+
+Seleciona:
+
+☑ Fisioterapia
+
+☑ Osteopatia
+
+☑ Pilates
+
+Isso define campos, fluxos e opções visuais.
+
+Etapa 3 — Profissionais
+
+Convida profissionais por email
+
+Define papéis
+
+Define especialidades de cada um
+
+Etapa 4 — Agenda
+
+Duração padrão por tipo de atendimento
+
+Intervalos
+
+Dias e horários
+
+Etapa 5 — Protocolos Base (opcional)
+
+Escolhe protocolos padrão
+
+Pode pular
+
+✔ Finaliza onboarding
+✔ Vai para Dashboard
+
+2.3 Uso Recorrente (Admin)
+
+Visualiza indicadores
+
+Gerencia usuários
+
+Ajusta permissões
+
+Visualiza relatórios
+
+Configura integrações
+
+3. Fluxo 2 — Profissional (Fisio / Osteo / Pilates)
+3.1 Convite e Primeiro Login
+
+Recebe convite por email
+
+Cria senha
+
+Login
+
+Completa perfil profissional:
+
+Especialidades
+
+Registro profissional
+
+Bio
+
+3.2 Rotina Diária do Profissional
+Tela inicial
+
+Agenda do dia
+
+Pacientes do dia
+
+Alertas (retornos, avaliações pendentes)
+
+Atendimento (Fluxo Crítico)
+
+Abre paciente
+
+Clica em “Iniciar sessão”
+
+Sistema:
+
+Pré-carrega histórico
+
+Última evolução
+
+Profissional registra:
+
+Queixa atual
+
+Avaliação
+
+Tratamentos
+
+Exercícios
+
+Marca efetividade
+
+Define plano próximo atendimento
+
+Finaliza sessão
+
+✔ Prontuário salvo
+✔ Paciente notificado
+
+3.3 Pós-Consulta
+
+Visualiza evolução gráfica
+
+Ajusta protocolo
+
+Revisa feedback do paciente
+
+Planeja próximos passos
+
+4. Fluxo 3 — Secretária / Recepção
+4.1 Acesso
+
+Login com papel limitado
+
+Sem acesso a prontuário clínico
+
+4.2 Rotina
+Agendamento
+
+Cria paciente
+
+Agenda consulta
+
+Confirma presença
+
+Reagenda / cancela
+
+Gestão
+
+Visualiza agenda geral
+
+Controla faltas
+
+Gera listas do dia
+
+5. Fluxo 4 — Paciente (Portal do Cliente)
+5.1 Entrada no Sistema
+Opção A — Convite
+
+Email/SMS com link
+
+Cria senha
+
+Opção B — Auto-agendamento
+
+Acessa portal público
+
+Escolhe:
+
+Serviço
+
+Profissional
+
+Horário
+
+Cria conta automaticamente
+
+5.2 Experiência do Paciente
+Dashboard
+
+Próxima consulta
+
+Histórico
+
+Exercícios ativos
+
+Após a Sessão
+
+Recebe notificação
+
+Acessa:
+
+Instruções
+
+Exercícios
+
+Envia feedback:
+
+Dor pós-sessão
+
+Avaliação
+
+Comentário
+
+Engajamento Contínuo
+
+Lembretes automáticos
+
+Avisos de retorno
+
+Conteúdo educativo
+
+Evolução visível
+
+6. Fluxos Transversais (Importantes)
+6.1 Cancelamento / Falta
+
+Paciente cancela
+
+Sistema:
+
+Atualiza agenda
+
+Notifica profissional
+
+Registra falta
+
+6.2 Reagendamento
+
+Mantém histórico
+
+Não quebra sessão
+
+Métrica de aderência
+
+6.3 Comunicação
+
+Email transacional
+
+Push (futuro)
+
+WhatsApp (premium)
+
+7. Estados do Sistema (Máquina de Estados)
+Agendamento
+SCHEDULED → CONFIRMED → DONE
+          → CANCELED
+          → NO_SHOW
+
+Sessão
+OPEN → COMPLETED → LOCKED
+
+8. UX / Decisões Importantes
+
+Prontuário rápido
+
+Poucos cliques
+
+Histórico sempre visível
+
+Nada técnico para o paciente
+
+Tudo técnico para o profissional
+
+9. Onde o Produto VIRA SaaS de Verdade
+
+Profissional sente ganho de tempo
+
+Paciente sente acompanhamento real
+
+Clínica vê dados
+
+Retenção alta
+
+Upsell natural (WhatsApp, financeiro, IA)
+[2026-01-30T13:40:23.402Z] [DEBUG] [generateTasksPreviewAction] ---------- PROMPT COMPLETO ENVIADO AO GEMINI ----------
+[2026-01-30T13:40:23.403Z] [DEBUG] [generateTasksPreviewAction] Você é um Tech Lead experiente. Com base no contexto do projeto abaixo, gere tarefas técnicas APENAS para o tema: **Stacks e ambiente**.
+
+Foque em stacks, ferramentas e ambiente: linguagens, frameworks, versões, IDE, Docker, env vars, scripts, repositório e tudo que define o ambiente de desenvolvimento e produção.
+
+
+**CONTEXTO DO PROJETO:**
+**CONTEXTO:**
+# Problemas atuais do mercado
+
+- Clínicas usam planilhas + WhatsApp + agenda física
+
+- Softwares genéricos não respeitam o raciocínio clínico
+
+- Prontuários bagunçados ou inexistentes
+
+- Falta de acompanhamento real da evolução do paciente
+
+- Pouco engajamento pós-consulta
+
+- Agendamento manual e falhas de comunicação
+
+- Dificuldade em escalar atendimento e padronizar processos
+
+# O que o InfoFisio entrega
+
+- Centralização total do atendimento
+
+- Prontuário clínico estruturado e inteligente
+
+- Histórico completo por paciente
+
+- Comunicação contínua com o cliente
+
+- Profissionalismo percebido pelo paciente
+
+- Base de dados valiosa para decisões clínicas e administrativas
+
+**ESCOPO:**
+# Stack Tecnológica (Base)
+
+- Frontend: Next.js (App Router)
+
+- Backend: Next.js API Routes / Server Actions
+
+- Banco de Dados: MySQL
+
+- ORM: Prisma
+
+- Auth: NextAuth (JWT + OAuth)
+
+- UI: Tailwind + componentes próprios
+
+- Infra: Vercel + banco gerenciado
+
+- Uploads: S3-compatible (ex: Cloudflare R2)
+
+- Notificações: Email + WhatsApp (futuro)
+
+- Multi-tenant: clínicas com múltiplos profissionais
+
+# Estrutura de Perfis Profissionais
+
+## Ao criar a conta, o usuário escolhe:
+
+- ☑ Fisioterapia
+
+- ☑ Osteopatia
+
+- ☑ Pilates
+
+- ☑ Combinação entre eles
+
+### Isso afeta:
+
+- Campos do prontuário
+
+- Tipos de tratamento
+
+- Avaliações clínicas
+
+- Métricas exibidas
+
+- Protocolos sugeridos
+
+- Relatórios
+
+# Módulos do Sistema
+
+## Gestão de Usuários
+- Tipos de usuário
+
+- Administrador da clínica
+
+- Profissional (fisio / osteo / pilates)
+
+- Secretária / recepção
+
+- Paciente
+
+- Permissões
+
+- Controle fino por módulo
+
+- Profissional só vê seus pacientes
+
+- Clínica vê dados consolidados
+
+## Cadastro de Pacientes (CRM)
+- Dados básicos
+
+- Nome, CPF
+
+- Contato
+
+- Data de nascimento
+
+- Sexo
+
+- Profissão
+
+- Convênio / particular
+
+- Dados clínicos
+
+- Queixa principal
+
+- Histórico médico
+
+- Cirurgias anteriores
+
+- Doenças associadas
+
+- Medicamentos
+
+- Restrições
+
+- Relacionamentos
+
+- Paciente → múltiplos tratamentos
+
+- Paciente → múltiplos profissionais
+
+## Prontuário Clínico Inteligente (Core do Sistema)
+Registro por sessão
+
+- Cada consulta gera um registro com:
+
+- Data e horário
+
+- Profissional responsável
+
+- Queixas atuais
+
+- Avaliação clínica
+
+- Diagnóstico funcional
+
+- Tratamentos aplicados
+
+- Técnicas utilizadas
+
+- Exercícios prescritos
+
+- Observações livres
+
+- Evolução do paciente
+
+- Escala de dor (0–10)
+
+- Mobilidade
+
+- Força
+
+- Amplitude
+
+- Funcionalidade
+
+- Comparação automática com sessões anteriores
+
+## Efetividade
+
+- Campo: “Tratamento foi efetivo?”
+
+- Justificativa
+
+- Ajustes para próxima sessão
+
+## Protocolos e Tratamentos
+
+- Biblioteca de protocolos padrão
+
+- Protocolos personalizados por clínica
+
+- Associação por patologia
+
+- Histórico de aplicação
+
+- Estatística de efetividade por protocolo
+
+## Agenda Inteligente
+### Funcionalidades
+
+- Agenda por profissional
+
+- Agenda da clínica
+
+- Visualização diária / semanal / mensal
+
+- Bloqueios de horário
+
+- Duração variável por tipo de atendimento
+
+- Agendamento pelo paciente
+
+- Portal do cliente
+
+- Escolha de profissional
+
+- Escolha de serviço
+
+- Confirmação automática
+
+- Lembretes por email/WhatsApp
+
+## Portal do Paciente
+### Acesso do paciente
+
+- Login próprio
+
+- Visualização de histórico
+
+- Agenda pessoal
+
+- Exercícios e alongamentos
+
+- Conteúdo terapêutico
+
+- Vídeos de exercícios
+
+- PDFs de orientação
+
+- Observações do profissional
+
+- Frequência recomendada
+
+- Feedback
+
+- Avaliação da sessão
+
+- Escala de dor pós-atendimento
+
+- Comentários
+
+- Adesão aos exercícios
+
+## Comunicação e Engajamento
+
+- Mensagens automáticas pós-consulta
+
+- Lembretes de exercícios
+
+- Avisos de retorno
+
+- Mensagens personalizadas
+
+- Histórico de comunicação
+
+## Relatórios e Indicadores
+- Clínicos
+
+- Evolução média dos pacientes
+
+- Tratamentos mais efetivos
+
+- Patologias mais comuns
+
+- Taxa de melhora
+
+- Administrativos
+
+- Atendimentos por período
+
+- Taxa de faltas
+
+- Profissionais mais ativos
+
+- Retenção de pacientes
+
+## Financeiro (opcional / premium)
+
+- Valor por sessão
+
+- Pacotes de sessões
+
+- Controle de pagamentos
+
+- Convênios
+
+- Faturas e recibos
+
+## Features Avançadas (Diferenciais)
+- IA Clínica (futuro)
+
+- Sugestão de tratamento baseada em histórico
+
+- Análise de evolução
+
+- Alertas de estagnação do paciente
+
+- Templates Inteligentes
+
+- Prontuário pré-preenchido
+
+- Protocolos recomendados por patologia
+
+- Multiunidade
+
+- Clínicas com várias unidades
+
+- Relatórios consolidados
+
+- Compliance
+
+- LGPD
+
+- Controle de acesso
+
+- Logs de alteração de prontuário
+
+## Diferenciais de Mercado
+
+- Não é genérico → é pensado para fisio/osteo/pilates
+
+- Prontuário clínico de verdade
+
+- Portal do paciente completo
+
+- Evolução mensurável
+
+- Escalável para clínicas e autônomos
+
+- Visual moderno e simples
+
+- Fácil de vender no Brasil e fora
+
+## Posicionamento Comercial
+- Público-alvo
+
+- Fisioterapeutas autônomos
+
+- Clínicas pequenas e médias
+
+- Estúdios de pilates
+
+- Centros integrados de saúde
+
+- Modelo de cobrança
+
+- Plano individual
+
+- Plano clínica
+
+-Add-ons (financeiro, IA, WhatsApp)
+
+**Modelagem de Banco:**
+# Modelagem do banco de dados
+
+## Entidades
+
+- Clinic
+- User
+- UserRole
+- ProfessionalProfile
+- Patient
+- PatientClinicalData
+- Appointment
+- Session
+- SessionEvolution
+- Treatment
+- Protocol
+- SessionTreatment
+- Exercise
+- SessionExercise
+- PatientFeedback
+- Notification
+
+**Arquitetura:**
+# Visão Geral da Arquitetura
+- Estilo
+
+- Backend modular orientado a domínio
+
+- Camadas bem definidas
+
+- Multi-tenant desde o início
+
+- Pronto para crescer (financeiro, IA, integrações)
+
+- Stack
+
+- Next.js (App Router)
+
+- API Routes + Server Actions
+
+- MySQL
+
+- Prisma ORM
+
+- NextAuth (JWT)
+
+- Zod (validação)
+
+- Middleware (auth + tenant)
+
+- Serviços isolados por domínio
+
+**Fluxo de Usuário:**
+Visão Geral dos Fluxos
+Tipos de usuário
+
+Administrador da Clínica
+
+Profissional (Fisio / Osteo / Pilates)
+
+Secretária / Recepção
+
+Paciente
+
+Cada um entra por um caminho diferente, mas o sistema mantém coerência de dados.
+
+2. Fluxo 1 — Administrador da Clínica
+2.1 Primeiro Acesso (Onboarding)
+
+Landing page → Criar conta
+
+Informa:
+
+Nome da clínica
+
+Email
+
+Senha
+
+Sistema cria:
+
+clinic
+
+user (ADMIN)
+
+Login automático
+
+Decisão de produto
+
+👉 Zero fricção: sem CNPJ no primeiro passo.
+
+2.2 Configuração Inicial (Setup Guiado)
+
+Wizard obrigatório:
+
+Etapa 1 — Perfil da Clínica
+
+Nome
+
+Telefone
+
+Logo
+
+Horário de funcionamento
+
+Etapa 2 — Especialidades
+
+Seleciona:
+
+☑ Fisioterapia
+
+☑ Osteopatia
+
+☑ Pilates
+
+Isso define campos, fluxos e opções visuais.
+
+Etapa 3 — Profissionais
+
+Convida profissionais por email
+
+Define papéis
+
+Define especialidades de cada um
+
+Etapa 4 — Agenda
+
+Duração padrão por tipo de atendimento
+
+Intervalos
+
+Dias e horários
+
+Etapa 5 — Protocolos Base (opcional)
+
+Escolhe protocolos padrão
+
+Pode pular
+
+✔ Finaliza onboarding
+✔ Vai para Dashboard
+
+2.3 Uso Recorrente (Admin)
+
+Visualiza indicadores
+
+Gerencia usuários
+
+Ajusta permissões
+
+Visualiza relatórios
+
+Configura integrações
+
+3. Fluxo 2 — Profissional (Fisio / Osteo / Pilates)
+3.1 Convite e Primeiro Login
+
+Recebe convite por email
+
+Cria senha
+
+Login
+
+Completa perfil profissional:
+
+Especialidades
+
+Registro profissional
+
+Bio
+
+3.2 Rotina Diária do Profissional
+Tela inicial
+
+Agenda do dia
+
+Pacientes do dia
+
+Alertas (retornos, avaliações pendentes)
+
+Atendimento (Fluxo Crítico)
+
+Abre paciente
+
+Clica em “Iniciar sessão”
+
+Sistema:
+
+Pré-carrega histórico
+
+Última evolução
+
+Profissional registra:
+
+Queixa atual
+
+Avaliação
+
+Tratamentos
+
+Exercícios
+
+Marca efetividade
+
+Define plano próximo atendimento
+
+Finaliza sessão
+
+✔ Prontuário salvo
+✔ Paciente notificado
+
+3.3 Pós-Consulta
+
+Visualiza evolução gráfica
+
+Ajusta protocolo
+
+Revisa feedback do paciente
+
+Planeja próximos passos
+
+4. Fluxo 3 — Secretária / Recepção
+4.1 Acesso
+
+Login com papel limitado
+
+Sem acesso a prontuário clínico
+
+4.2 Rotina
+Agendamento
+
+Cria paciente
+
+Agenda consulta
+
+Confirma presença
+
+Reagenda / cancela
+
+Gestão
+
+Visualiza agenda geral
+
+Controla faltas
+
+Gera listas do dia
+
+5. Fluxo 4 — Paciente (Portal do Cliente)
+5.1 Entrada no Sistema
+Opção A — Convite
+
+Email/SMS com link
+
+Cria senha
+
+Opção B — Auto-agendamento
+
+Acessa portal público
+
+Escolhe:
+
+Serviço
+
+Profissional
+
+Horário
+
+Cria conta automaticamente
+
+5.2 Experiência do Paciente
+Dashboard
+
+Próxima consulta
+
+Histórico
+
+Exercícios ativos
+
+Após a Sessão
+
+Recebe notificação
+
+Acessa:
+
+Instruções
+
+Exercícios
+
+Envia feedback:
+
+Dor pós-sessão
+
+Avaliação
+
+Comentário
+
+Engajamento Contínuo
+
+Lembretes automáticos
+
+Avisos de retorno
+
+Conteúdo educativo
+
+Evolução visível
+
+6. Fluxos Transversais (Importantes)
+6.1 Cancelamento / Falta
+
+Paciente cancela
+
+Sistema:
+
+Atualiza agenda
+
+Notifica profissional
+
+Registra falta
+
+6.2 Reagendamento
+
+Mantém histórico
+
+Não quebra sessão
+
+Métrica de aderência
+
+6.3 Comunicação
+
+Email transacional
+
+Push (futuro)
+
+WhatsApp (premium)
+
+7. Estados do Sistema (Máquina de Estados)
+Agendamento
+SCHEDULED → CONFIRMED → DONE
+          → CANCELED
+          → NO_SHOW
+
+Sessão
+OPEN → COMPLETED → LOCKED
+
+8. UX / Decisões Importantes
+
+Prontuário rápido
+
+Poucos cliques
+
+Histórico sempre visível
+
+Nada técnico para o paciente
+
+Tudo técnico para o profissional
+
+9. Onde o Produto VIRA SaaS de Verdade
+
+Profissional sente ganho de tempo
+
+Paciente sente acompanhamento real
+
+Clínica vê dados
+
+Retenção alta
+
+Upsell natural (WhatsApp, financeiro, IA)
+
+Gere tarefas suficientes para cobrir o contexto do projeto relacionado a esse tema. Seja específico e técnico. Tarefas pequenas e executáveis.
+
+Retorne APENAS um JSON válido:
+{
+  "tasks": [
+    {
+      "title": "Título claro da tarefa",
+      "description": "Descrição detalhada do que fazer"
+    }
+  ]
+}
+[2026-01-30T13:40:23.408Z] [DEBUG] [generateTasksPreviewAction] modelId: gemini-2.5-flash
+[2026-01-30T13:40:42.228Z] [DEBUG] [generateTasksPreviewAction] ---------- RESPOSTA DO GEMINI ----------
+[2026-01-30T13:40:42.229Z] [DEBUG] [generateTasksPreviewAction] ```json
+{
+  "tasks": [
+    {
+      "title": "Configuração Inicial do Projeto Next.js (App Router)",
+      "description": "Criar um novo projeto Next.js utilizando `create-next-app` com TypeScript, configurando-o para usar o App Router. Garantir que as dependências básicas para desenvolvimento (React, Next.js, TypeScript) estejam instaladas e configuradas corretamente."
+    },
+    {
+      "title": "Integração e Configuração do Tailwind CSS",
+      "description": "Instalar e configurar o Tailwind CSS no projeto Next.js. Incluir a configuração do `tailwind.config.js` e a importação das diretivas CSS no arquivo global, garantindo que o JIT mode esteja ativado para otimização."
+    },
+    {
+      "title": "Definição e Padronização da Versão do Node.js",
+      "description": "Especificar a versão do Node.js recomendada para o desenvolvimento do projeto. Criar um arquivo `.nvmrc` e adicionar a entrada `engines.node` no `package.json` para garantir consistência entre os ambientes de desenvolvimento e CI/CD."
+    },
+    {
+      "title": "Configuração de ESLint e Prettier para Code Style",
+      "description": "Configurar ESLint e Prettier para padronização do estilo de código. Incluir plugins para Next.js, TypeScript e Tailwind CSS. Definir regras básicas para garantir consistência e qualidade do código."
+    },
+    {
+      "title": "Configuração de Ambiente de Desenvolvimento com Docker Compose (MySQL)",
+      "description": "Criar um arquivo `docker-compose.yml` para orquestrar um ambiente de desenvolvimento local, incluindo um serviço MySQL. Definir volumes persistentes e portas para acesso ao banco de dados."
+    },
+    {
+      "title": "Inicialização e Configuração do Prisma ORM",
+      "description": "Instalar Prisma e inicializar o `schema.prisma`. Configurar o datasource para MySQL e o generator para `prisma-client-js`. Apontar a conexão para o banco de dados MySQL local via Docker Compose."
+    },
+    {
+      "title": "Execução da Primeira Migração do Prisma",
+      "description": "Definir as entidades iniciais (Clinic, User, ProfessionalProfile) no `schema.prisma` e executar `prisma migrate dev` para criar as tabelas correspondentes no banco de dados de desenvolvimento local."
+    },
+    {
+      "title": "Criação de Script para Seed de Banco de Dados Local",
+      "description": "Desenvolver um script (`prisma/seed.ts`) para popular o banco de dados de desenvolvimento com dados iniciais essenciais, como um usuário administrador padrão e uma clínica de exemplo."
+    },
+    {
+      "title": "Gerenciamento de Variáveis de Ambiente Locais",
+      "description": "Criar um arquivo `.env.local.example` com todas as variáveis de ambiente necessárias para o desenvolvimento local (ex: `DATABASE_URL`, `NEXTAUTH_SECRET`, `S3_ENDPOINT`). Documentar seu uso no README."
+    },
+    {
+      "title": "Integração e Configuração do NextAuth.js",
+      "description": "Instalar NextAuth.js e configurar um provider de credenciais para autenticação via email/senha. Implementar a estratégia JWT e definir a variável `NEXTAUTH_SECRET` no ambiente."
+    },
+    {
+      "title": "Configuração de Variáveis de Ambiente para Vercel (Produção/Staging)",
+      "description": "Configurar as variáveis de ambiente necessárias para os deployments na Vercel (produção e preview), incluindo `DATABASE_URL`, `NEXTAUTH_SECRET` e credenciais do Cloudflare R2. Assegurar que sejam secretas e seguras."
+    },
+    {
+      "title": "Integração e Configuração do Cliente S3-compatível (Cloudflare R2)",
+      "description": "Instalar o SDK da AWS (`@aws-sdk/client-s3`) e configurar o cliente S3 para se conectar ao Cloudflare R2 (ou provedor similar) usando as variáveis de ambiente para endpoint, `accessKeyId` e `secretAccessKey`."
+    },
+    {
+      "title": "Configuração de `package.json` Scripts Essenciais",
+      "description": "Adicionar scripts ao `package.json` para tarefas comuns: `dev` (iniciar servidor de desenvolvimento), `build` (compilar para produção), `start` (servir build de produção), `lint` (executar ESLint), `format` (executar Prettier), e comandos Prisma (`prisma:migrate`, `prisma:seed`)."
+    },
+    {
+      "title": "Implementação de Hooks de Pré-commit com Husky",
+      "description": "Instalar Husky e `lint-staged` para automatizar a execução de ESLint e Prettier em arquivos staged antes do commit, garantindo a consistência do código no repositório."
+    },
+    {
+      "title": "Integração e Configuração da Biblioteca Zod para Validação",
+      "description": "Integrar Zod no projeto para validação de esquemas de dados. Começar a definir schemas para entradas de API Routes e Server Actions, como criação de usuário ou registro de paciente."
+    },
+    {
+      "title": "Configuração Inicial de Deployment na Vercel",
+      "description": "Conectar o projeto Next.js ao Vercel via CLI ou dashboard, configurando as opções de build e o domínio inicial. Realizar o primeiro deploy para validar o setup básico do ambiente de produção."
+    },
+    {
+      "title": "Recomendações de Extensões IDE (VS Code)",
+      "description": "Criar um arquivo `.vscode/extensions.json` para recomendar extensões úteis para o desenvolvimento do projeto (ex: ESLint, Prettier, Tailwind CSS Intellisense, Prisma)."
+    },
+    {
+      "title": "Documentação de Setup do Ambiente de Desenvolvimento no README",
+      "description": "Escrever um guia detalhado no `README.md` do projeto sobre como configurar o ambiente de desenvolvimento local, incluindo passos para Docker Compose, Prisma, instalação de dependências e execução do projeto."
+    }
+  ]
+}
+```
